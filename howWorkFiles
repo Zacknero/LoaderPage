@@ -1,0 +1,50 @@
+How work it
+
+/* HTML */
+<button loader-page="31" ng-click="newList()" class="btn btn-primary">OK</button>
+/* HTML */
+
+
+/* JS */
+
+  --- Controller
+                  $scope.newList = function () {
+
+                    serviceName.methodCallRest(params, function (data, err, message) {
+
+                        if (data) {
+                            LoaderPageService.buildMessage(messageForLoaderpage, par, function (data) {
+                                if(message)
+                                    $scope.dataService.dataNavigation.messageAdditionalForLoaderpage = message;
+                                $scope.dataService.dataNavigation.messageForLoaderpage = data;
+                                $scope.dataService.dataNavigation.statusBar += 20;
+                            });
+                        }
+                        else if (err) {
+                            LoaderPageService.errorSystemLoader(err.message, function (data) {
+                                $scope.dataService.dataNavigation.typeLoader = 'danger';
+                                $scope.dataService.dataNavigation.messageForLoaderpage = data;
+                            });
+                        }
+                    });
+                };
+                
+  --- Service Rest  
+  
+  
+        serviceName.methodCallRest = function (params, callback) {
+                    .......
+                    $http.post()
+                        .then(function (data) {
+                            if (data.messaggio && data.messaggio != '') {
+                                callback(data.contenuto, null, data.messaggio);
+                              }
+                         ...
+                        }, function (err) {
+                            callback(null, err);
+                        });
+
+                };
+
+/* JS */
+
