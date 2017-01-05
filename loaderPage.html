@@ -1,0 +1,52 @@
+<div class="row" ng-controller="LoaderPageController">
+
+    <div class="row" style="padding-top: 100px;">
+        <div class="col-md-12" style="float: left; border:1px solid rgb(151, 14, 21);">
+
+            <div class="col-lg-12" style="text-align: center;color:blue">
+
+                <div class="progress" style="margin-top: 40px">
+                    <uib-progressbar class="progress-striped active" value="dataService.dataNavigation.statusBar"
+                                     type="{{dataService.dataNavigation.typeLoader}}">
+                        {{dataService.dataNavigation.statusBar}} %
+                    </uib-progressbar>
+                </div>
+
+                <div ng-show=" (dataService.dataNavigation.statusBar != 100) && (dataService.dataNavigation.typeLoader != 'danger' )">
+                    <h3>Processing...</h3>
+
+                    <h3>Please wait.....</h3>
+                </div>
+
+            </div>
+
+            <div class="col-lg-12" style="text-align: center;"
+                 ng-show=" ( dataService.dataNavigation.statusBar == 100 ) && (dataService.dataNavigation.typeLoader != 'danger')">
+                <h3>
+                    <div ng-bind-html="dataService.dataNavigation.messageForLoaderpage"></div>
+                    <span style="color: #e42f2f; text-decoration: underline;"
+                          ng-show="dataService.dataNavigation.messageAdditionalForLoaderpage">
+                        {{dataService.dataNavigation.messageAdditionalForLoaderpage}}
+                    </span>
+                </h3>
+            </div>
+
+            <div class="col-lg-12" style="text-align: center;"
+                 ng-show="dataService.dataNavigation.typeLoader == 'danger' ">
+                <h3>
+                    <span style="color: #e42f2f; text-decoration: underline;">
+                        {{dataService.dataNavigation.messageForLoaderpage}}
+                    </span>
+                </h3>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row" ng-show=" (dataService.dataNavigation.statusBar == 100) || (dataService.dataNavigation.typeLoader == 'danger')">
+        <div class="col-lg-12" style="text-align:center;padding-top: 10px;">
+            <a class="btn btn-primary" role="button" ng-click="endLoader()">OK</a>
+        </div>
+    </div>
+
+</div>
